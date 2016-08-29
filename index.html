@@ -8,46 +8,45 @@
 
 	<script>
 	$(function(){
-		//client id: g3pyqisme4u9qsuwa1mjmwzx8virnu0
-		//client secret: 4ztd0umv6h9yqlvujwhtxpcgm3xu9yy
-
 		Twitch.init({clientId: 'g3pyqisme4u9qsuwa1mjmwzx8virnu0'}, function(error, status) {
-	    	// the sdk is now loaded
-	  	});
+	    	$('#btnSearch').on('click', function(){
+				$('#loading').show();
 
-		$('#btnSearch').on('click', function(){
-			var term = $('#term').val();
+				var term = $('#term').val();
 
-			$.getJSON("https://api.twitch.tv/kraken/search/streams?q="+term+"&limit=20&type=top&callback=?", function (data){
-			    var temp = "";
+				$.getJSON("https://api.twitch.tv/kraken/search/streams?q="+term+"&limit=20&type=top&callback=?", function(data){
+				    var temp = "";
 
-			    $.each(data.streams.slice(0,5), function(index, item) {
-			        temp = temp + "<a href='player.html?channel="+item.channel.name+"' target='_blank'><button>"+item.channel.display_name+"</button></a><br />";
-			    });
-			    $("#response").html(temp);
+				    $.each(data.streams, function(index, item) {
+				 		var preview = item.preview.medium;
+				 		var channel = item.channel.name;
+				 		var display = item.channel.display_name;
+				 		
+				 		temp = temp + "<a title='"+display+"' src='"+preview+"' href='player.html?channel="+channel+"' target='_blank'><img class='thumbnail' src='"+preview+"'></a>";
+				    });
+				    $("#response").html(temp);
+
+				    $('#loading').hide();
+				});
 			});
-		});
-
-		$('#response').html('this is the response area');
+	  	});
 	});
 	</script>
 
-	<style>
-		#search{
-			text-align: center;
-		}
-		#response{
-			text-align: center;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<h2>spring-dew-1072</h2>
 	<div id="search">
 		<input type="text" name="term" id="term" />
 		<input type="button" value="search" id="btnSearch" />
 	</div>
 	<div id="response">
 		
+	</div>
+
+	<div id="loading">
+		<img src="images/ajax-loader.gif" id="imgLoading">
 	</div>
 </body>
 </html>

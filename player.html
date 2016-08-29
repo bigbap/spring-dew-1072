@@ -4,22 +4,48 @@
 	<title>Twitch Test (Player)</title>
 
 	<script src="https://code.jquery.com/jquery.min.js"></script>
+	<script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
 
 	<script>
 	$(function(){
-		var channel = window.location.search.split('=')[1];
-		$("#player").attr('src', 'http://player.twitch.tv/?channel='+channel);
+		Twitch.init({clientId: 'g3pyqisme4u9qsuwa1mjmwzx8virnu0'}, function(error, status) {
+			var channel = window.location.search.split('=')[1];
+			
+			$("#player").attr('src', 'http://player.twitch.tv/?channel='+channel);
+
+			var pollChannel = function(){
+				$.getJSON("https://api.twitch.tv/kraken/streams?channel="+channel+"&callback=?", function (data){
+				    var viewers = data.streams[0].viewers;
+				    var game = data.streams[0].channel.game;
+
+				    $('#channel').html(channel);
+				    $('#viewers').html(viewers);
+				    $('#game').html(game);
+				});
+				setTimeout(pollChannel, 5000);
+			};
+			pollChannel();
+		});
 	});
 	</script>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<iframe
-		id="player"
-		height="360"
-		width="640"
-		frameborder="0"
-		scrolling="no"
-		allowfullscreen="true">
-	</iframe>
+	<h2 id="channel"></h2>
+	<div id="frame">
+		<iframe
+			id="player"
+			height="360"
+			width="640"
+			frameborder="0"
+			scrolling="no"
+			allowfullscreen="true">
+		</iframe>
+	</div>
+	<div id="info">
+		Viewers: <span id="viewers"></span><br />
+		Game: <span id="game"></span>
+	</div>
 </body>
 </html>
