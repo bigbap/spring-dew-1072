@@ -22,7 +22,11 @@
 				 		var channel = item.channel.name;
 				 		var display = item.channel.display_name;
 				 		
-				 		temp = temp + "<a title='"+display+"' src='"+preview+"' href='player.html?channel="+channel+"' target='_blank'><img class='thumbnail' src='"+preview+"'></a>";
+				 		temp = temp + "<a title='"+display+"' src='"+preview+"' href='player.html?channel="+channel+"' target='_blank'>";
+				 		temp = temp + "<div class='thumbnail'>";
+				 		temp = temp + "<img src='"+preview+"'>";
+				    	temp = temp + "</div>";
+				    	temp = temp + "</a>";
 				    });
 				    $("#response").html(temp);
 
@@ -38,7 +42,7 @@
 <body>
 	<h2>spring-dew-1072</h2>
 	<div id="search">
-		<input type="text" name="term" id="term" />
+		<input type="text" name="term" id="term" placeholder="search term..." />
 		<input type="button" value="search" id="btnSearch" />
 	</div>
 	<div id="response">
