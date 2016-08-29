@@ -11,7 +11,7 @@
 		Twitch.init({clientId: 'g3pyqisme4u9qsuwa1mjmwzx8virnu0'}, function(error, status) {
 			var channel = window.location.search.split('=')[1];
 			
-			$("#player").attr('src', 'http://player.twitch.tv/?channel='+channel);
+			$("#player").attr('src', 'https://player.twitch.tv/?channel='+channel);
 
 			var pollChannel = function(){
 				$.getJSON("https://api.twitch.tv/kraken/streams?channel="+channel+"&callback=?", function (data){
