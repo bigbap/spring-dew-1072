@@ -9,19 +9,23 @@
 	<script>
 	$(function(){
 		Twitch.init({clientId: 'g3pyqisme4u9qsuwa1mjmwzx8virnu0'}, function(error, status) {
+	    	// create an event that fires when the searh button is clicked
 	    	$('#btnSearch').on('click', function(){
 				$('#loading').show();
 
+				// get the search term
 				var term = $('#term').val();
 
 				$.getJSON("https://api.twitch.tv/kraken/search/streams?q="+term+"&limit=20&type=top&callback=?", function(data){
 				    var temp = "";
 
+				    // loop through the returned streams and construct the HTML
 				    $.each(data.streams, function(index, item) {
 				 		var preview = item.preview.medium;
 				 		var channel = item.channel.name;
 				 		var display = item.channel.display_name;
 				 		
+				 		// construct the HTML
 				 		temp = temp + "<a title='"+display+"' src='"+preview+"' href='player.html?channel="+channel+"' target='_blank'>";
 				 		temp = temp + "<div class='thumbnail'>";
 				 		temp = temp + "<img src='"+preview+"'>";
