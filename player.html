@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitch Test (Player)</title>
+
+	<script src="https://code.jquery.com/jquery.min.js"></script>
+
+	<script>
+	$(function(){
+		var channel = window.location.search.split('=')[1];
+		$("#player").attr('src', 'http://player.twitch.tv/?channel='+channel);
+	});
+	</script>
+</head>
+<body>
+	<iframe
+		id="player"
+		height="360"
+		width="640"
+		frameborder="0"
+		scrolling="no"
+		allowfullscreen="true">
+	</iframe>
+</body>
+</html>

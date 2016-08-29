@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitch Test</title>
+
+	<script src="https://code.jquery.com/jquery.min.js"></script>
+	<script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+
+	<script>
+	$(function(){
+		//client id: g3pyqisme4u9qsuwa1mjmwzx8virnu0
+		//client secret: 4ztd0umv6h9yqlvujwhtxpcgm3xu9yy
+
+		Twitch.init({clientId: 'g3pyqisme4u9qsuwa1mjmwzx8virnu0'}, function(error, status) {
+	    	// the sdk is now loaded
+	  	});
+
+		$('#btnSearch').on('click', function(){
+			var term = $('#term').val();
+
+			$.getJSON("https://api.twitch.tv/kraken/search/streams?q="+term+"&limit=20&type=top&callback=?", function (data){
+			    var temp = "";
+
+			    $.each(data.streams.slice(0,5), function(index, item) {
+			        temp = temp + "<a href='player.html?channel="+item.channel.name+"' target='_blank'><button>"+item.channel.display_name+"</button></a><br />";
+			    });
+			    $("#response").html(temp);
+			});
+		});
+
+		$('#response').html('this is the response area');
+	});
+	</script>
+
+	<style>
+		#search{
+			text-align: center;
+		}
+		#response{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="search">
+		<input type="text" name="term" id="term" />
+		<input type="button" value="search" id="btnSearch" />
+	</div>
+	<div id="response">
+		
+	</div>
+</body>
+</html>
