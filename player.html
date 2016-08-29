@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Twitch Test (Player)</title>
+	<title>Twitch App (Player)</title>
 
 	<script src="https://code.jquery.com/jquery.min.js"></script>
 	<script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
@@ -17,7 +17,7 @@
 				$.getJSON("https://api.twitch.tv/kraken/streams?channel="+channel+"&callback=?", function (data){
 				    var viewers = data.streams[0].viewers;
 				    var game = data.streams[0].channel.game;
-
+				    
 				    $('#channel').html(channel);
 				    $('#viewers').html(viewers);
 				    $('#game').html(game);

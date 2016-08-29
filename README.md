@@ -5,4 +5,6 @@ You can run the app using this URL: https://spring-dew-1072.herokuapp.com/index.
 
 There is a text box where you can input your search term. The app will return a maximum of 20 results. Clicking on one of the thumbnails will open the player in a new tab.
 
+There is a viewer counter on the player tab. Every 5 seconds the app polls Twitch and updates the counter.
+
 Enjoy!
